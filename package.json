@@ -17,6 +17,8 @@
     "node-fetch": "^2.1.2"
   },
   "devDependencies": {
-    "eslint": "^5.0.1"
+    "eslint": "^5.0.1",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.8.0"
   }
 }
