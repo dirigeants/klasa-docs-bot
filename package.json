@@ -1,0 +1,22 @@
+{
+  "name": "klasa-docs-bot",
+  "version": "1.0.0",
+  "description": "The klasa docs bot, what else!",
+  "main": "src/index",
+  "scripts": {
+    "test": "eslint .",
+    "start:": "node --experimental-modules ."
+  },
+  "keywords": [],
+  "author": "Frangu Vlad <kingdgrizzle@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "github:discordjs/discord.js",
+    "fast-levenshtein": "^2.0.6",
+    "klasa": "github:dirigeants/klasa",
+    "node-fetch": "^2.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^5.0.1"
+  }
+}
