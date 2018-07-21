@@ -2,7 +2,7 @@ export default {
 	/**
 	 * The token for the bot
 	 */
-	token: "",
+	token: "MzgxNDYzMDMyODEyNzk3OTU0.Dh1CHQ.XPlHNruQgzh8PaaJN8_2643GRYE",
 
 	/**
 	 * The owner/repository to get the doc JSONs from
