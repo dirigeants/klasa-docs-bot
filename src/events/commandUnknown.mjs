@@ -6,6 +6,7 @@ export default class extends Event {
 	}
 
 	async run (message, command) {
-		console.log(message.content.substring(message.prefixLength));
+		const document = message.content.match(/^((?:klasa )?docs(?:,|!| )?)(?:master|stable) (.+)/i)[2];
+		console.log(document);
 	}
 }

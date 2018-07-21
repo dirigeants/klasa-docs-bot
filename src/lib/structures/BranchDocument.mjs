@@ -42,6 +42,8 @@ export default class BranchDocument {
 	}
 
 	_patch (data) {
+		// TODO: DO we want custom documents? They break on discord if we use embeds and tables..
+		// Either we just link or use non-embedded for it
 		for (const [category, value] of Object.entries(data.custom)) {
 			const doc = this.aliases.get(category);
 			if (doc) {
@@ -52,7 +54,6 @@ export default class BranchDocument {
 				this.aliases.set(category, newdoc);
 			}
 		}
-
 		this.keyArray = [...this.custom.keys(), ...this.externals.keys(), ...this.classes.keys(), ...this.typedefs.keys()];
 		this.aliasKeyArray = [...this.aliases.keys()];
 	}

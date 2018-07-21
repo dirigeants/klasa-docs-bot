@@ -59,3 +59,4 @@ typings/
 
 src/bwd
 .vs/
+config.mjs
