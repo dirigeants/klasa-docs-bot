@@ -17,7 +17,7 @@
     "fast-levenshtein": "^2.0.6",
     "klasa": "github:dirigeants/klasa#esm",
     "marked": "^0.4.0",
-    "node-fetch": "^2.1.2",
+    "node-fetch": "^2.2.0",
     "zlib-sync": "^0.1.4"
   },
   "devDependencies": {
