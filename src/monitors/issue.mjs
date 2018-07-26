@@ -62,7 +62,7 @@ class Issue extends Monitor {
 
 		const response = this.embed
 			.setAuthor(data.user.login, data.user.avatar_url, data.user.url)
-			.setTitle(data.title)
+			.setTitle(`Pull Request: ${data.title}`)
 			.setURL(data.url)
 			.setDescription(description)
 			.setTimestamp(new Date(data.created_at))
@@ -83,7 +83,7 @@ class Issue extends Monitor {
 
 		const response = this.embed
 			.setAuthor(data.user.login, data.user.avatar_url, data.user.url)
-			.setTitle(data.title)
+			.setTitle(`Issue: ${data.title}`)
 			.setURL(data.url)
 			.setDescription(description)
 			.setTimestamp(new Date(data.created_at))
