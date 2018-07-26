@@ -61,9 +61,9 @@ class Issue extends Monitor {
 		const description = data.body.length > 2048 ? `${data.body.slice(2045)}...` : data.body;
 
 		const response = this.embed
-			.setAuthor(data.user.login, data.user.avatar_url, data.user.url)
+			.setAuthor(data.user.login, data.user.avatar_url, data.user.html_url)
 			.setTitle(`Pull Request: ${data.title}`)
-			.setURL(data.url)
+			.setURL(data.html_url)
 			.setDescription(description)
 			.setTimestamp(new Date(data.created_at))
 			.setColor(this.colors.pullRequests[state])
@@ -82,9 +82,9 @@ class Issue extends Monitor {
 		const description = data.body.length > 2048 ? `${data.body.slice(2045)}...` : data.body;
 
 		const response = this.embed
-			.setAuthor(data.user.login, data.user.avatar_url, data.user.url)
+			.setAuthor(data.user.login, data.user.avatar_url, data.user.html_url)
 			.setTitle(`Issue: ${data.title}`)
-			.setURL(data.url)
+			.setURL(data.html_url)
 			.setDescription(description)
 			.setTimestamp(new Date(data.created_at))
 			.setColor(this.colors.issues[data.state])
