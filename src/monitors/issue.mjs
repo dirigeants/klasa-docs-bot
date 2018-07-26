@@ -59,7 +59,7 @@ class Issue extends Monitor {
 
 	pullRequest (message, data) {
 		const state = data.state === "closed" && data.merged ? "merged" : data.state;
-		const description = data.body.length > 2048 ? `${data.body.slice(2045)}...` : data.body;
+		const description = data.body.length > 2048 ? `${data.body.slice(0, 2045)}...` : data.body;
 
 		const response = this.embed
 			.setAuthor(data.user.login, data.user.avatar_url, data.user.html_url)
@@ -81,7 +81,7 @@ class Issue extends Monitor {
 	}
 
 	issue (message, data) {
-		const description = data.body.length > 2048 ? `${data.body.slice(2045)}...` : data.body;
+		const description = data.body.length > 2048 ? `${data.body.slice(0, 2045)}...` : data.body;
 
 		const response = this.embed
 			.setAuthor(data.user.login, data.user.avatar_url, data.user.html_url)
