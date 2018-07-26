@@ -8,6 +8,9 @@ const {
 import Documentation from './structures/Documentation';
 import { Client } from 'klasa';
 
+Client.defaultPermissionLevels
+	.add(8, (client, msg) => client.configs.staff.includes(msg.author.id));
+
 export default class extends Client {
 
 	constructor() {
