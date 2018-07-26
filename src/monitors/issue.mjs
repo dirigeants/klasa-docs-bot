@@ -22,6 +22,11 @@ class Issue extends Monitor {
 		};
 	}
 
+	get embed () {
+		return new djs.MessageEmbed()
+			.setThumbnail("https://raw.githubusercontent.com/dirigeants/klasa-website/master/assets/klasa.png");
+	}
+
 	async run (message) {
 		const exec = Issue.regex.exec(message.content);
 
@@ -55,20 +60,19 @@ class Issue extends Monitor {
 		const state = data.state === "closed" && data.merged ? "merged" : data.state;
 		const description = data.body.length > 2048 ? `${data.body.slice(2045)}...` : data.body;
 
-		const response = new djs.MessageEmbed()
+		const response = this.embed
 			.setAuthor(data.user.login, data.user.avatar_url, data.user.url)
 			.setTitle(data.title)
 			.setURL(data.url)
 			.setDescription(description)
-			.setThumbnail("https://raw.githubusercontent.com/dirigeants/klasa-website/master/assets/klasa.svg")
 			.setTimestamp(new Date(data.created_at))
 			.setColor(this.colors.pullRequests[state])
-			.addField("__**State:**__", state)
 			.addField("__**Additions:**__", data.additions, true)
 			.addField("__**Deletions:**__", data.deletions, true)
 			.addField("__**Commits:**__", data.commits, true)
 			.addField("__**Files Changed:**__", data.changed_files, true)
-			.addField("__**Labels:**__", data.labels.map(label => label.name))
+			.addField("__**State:**__", state, true)
+			.addField("__**Labels:**__", data.labels.map(label => label.name), true)
 			.addField("__**Install With:**__", `\`npm i ${data.head.repo.full_name}#${data.head.ref}\``);
 
 		return message.sendEmbed(response);
@@ -77,16 +81,15 @@ class Issue extends Monitor {
 	issue (message, data) {
 		const description = data.body.length > 2048 ? `${data.body.slice(2045)}...` : data.body;
 
-		const response = new djs.MessageEmbed()
+		const response = this.embed
 			.setAuthor(data.user.login, data.user.avatar_url, data.user.url)
 			.setTitle(data.title)
 			.setURL(data.url)
 			.setDescription(description)
-			.setThumbnail("https://raw.githubusercontent.com/dirigeants/klasa-website/master/assets/klasa.svg")
 			.setTimestamp(new Date(data.created_at))
 			.setColor(this.colors.issues[data.state])
-			.addField("__**State:**__", data.state)
-			.addField("__**Labels:**__", data.labels.map(label => label.name));
+			.addField("__**State:**__", data.state, true)
+			.addField("__**Labels:**__", data.labels.map(label => label.name), true);
 
 		return message.sendEmbed(response);
 	}
