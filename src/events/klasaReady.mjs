@@ -1,14 +1,16 @@
-import { Event } from "klasa";
+import { Event } from 'klasa';
 
 export default class extends Event {
-	constructor (...args) {
+
+	constructor(...args) {
 		super(...args, {
 			enabled: true,
-			once: true,
+			once: true
 		});
 	}
 
-	async run () {
+	async run() {
 		await this.client.documentation.init();
 	}
+
 }

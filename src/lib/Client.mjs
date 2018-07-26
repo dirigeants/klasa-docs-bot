@@ -1,35 +1,37 @@
-import config from "../../config";
+import config from '../../config';
 const {
 	branches,
 	jsonBranch,
 	repository,
-	token,
+	token
 } = config;
-import Documentation from "./structures/Documentation";
-import { Client } from "klasa";
+import Documentation from './structures/Documentation';
+import { Client } from 'klasa';
 
 export default class extends Client {
-	constructor () {
+
+	constructor() {
 		super({
 			commandEditing: true,
 			commandLogging: true,
 			disableEveryone: true,
-			disabledEvents: ["TYPING_START"],
+			disabledEvents: ['TYPING_START'],
 			pieceDefaults: {
 				commands: {
-					deletable: true,
-				},
+					deletable: true
+				}
 			},
 			presence: {
-				status: "invisible",
+				status: 'invisible'
 			},
 			regexPrefix: /^((?:klasa )?docs(?:,|!|\w)?)/i,
-			prefix: "docs, ",
-			restTimeOffset: 0,
+			prefix: 'docs, ',
+			restTimeOffset: 0
 		});
 
 		this.documentation = new Documentation(this, repository, jsonBranch, branches);
 
 		this.login(token);
 	}
+
 }

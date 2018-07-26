@@ -1,11 +1,12 @@
-import { Urls, REPLACERE } from "../Constants";
+import { Urls, REPLACERE } from '../Constants';
 const { GH_API, RAW_URL } = Urls;
-import BranchDocument from "./BranchDocument";
-import fetch from "node-fetch";
-import levenshtein from "fast-levenshtein";
+import BranchDocument from './BranchDocument';
+import fetch from 'node-fetch';
+import levenshtein from 'fast-levenshtein';
 
 export default class Documentation extends Map {
-	constructor (client, repository, jsonBranch, branches) {
+
+	constructor(client, repository, jsonBranch, branches) {
 		super();
 		this.client = client;
 		this.repository = repository;
@@ -25,17 +26,17 @@ export default class Documentation extends Map {
 			keyArray: {
 				enumerable: false,
 				value: [],
-				writable: true,
+				writable: true
 			},
 			aliasKeyArray: {
 				enumerable: false,
 				value: [],
-				writable: true,
-			},
+				writable: true
+			}
 		});
 	}
 
-	get (item) {
+	get(item) {
 		const foundAlias = this.aliases.get(item);
 		if (foundAlias) return foundAlias;
 		for (const alias of this.aliasKeyArray) {
@@ -44,9 +45,10 @@ export default class Documentation extends Map {
 		for (const key of this.keyArray) {
 			if (key.test(item)) return this.get(key);
 		}
+		return undefined;
 	}
 
-	async init () {
+	async init() {
 		const branchInfo = await fetch(`${GH_API}/repos/${this.repository}/branches/${this.jsonBranch}`).then(res => res.json()).catch(() => null);
 		if (branchInfo) {
 			const branches = (await Promise.all(
@@ -61,13 +63,14 @@ export default class Documentation extends Map {
 			for (const item of branches) {
 				const doc = new BranchDocument(item);
 				this.aliases.set(item.branch, doc);
-				this.set(new RegExp(`\\b(?:${item.branch.replace(REPLACERE, (letter, nextWord) => `${letter}+${nextWord ? "\\W*" : ""}`)})\\b`, "i"), doc);
+				this.set(new RegExp(`\\b(?:${item.branch.replace(REPLACERE, (letter, nextWord) => `${letter}+${nextWord ? '\\W*' : ''}`)})\\b`, 'i'), doc);
 			}
 			this.keyArray = [...this.keys()];
 			this.aliasKeyArray = [...this.aliases.keys()];
-			this.client.emit("log", `Successfully loaded ${this.size === 1 ? "a" : this.size} documentation${this.size !== 1 ? "s" : ""}!`);
+			this.client.emit('log', `Successfully loaded ${this.size === 1 ? 'a' : this.size} documentation${this.size !== 1 ? 's' : ''}!`);
 		} else {
-			this.client.emit("warn", `Couldn't find JSON Branch ${this.jsonBranch} for repository ${this.repository}! Double check and try again!`);
+			this.client.emit('warn', `Couldn't find JSON Branch ${this.jsonBranch} for repository ${this.repository}! Double check and try again!`);
 		}
 	}
+
 }
