@@ -126,7 +126,7 @@ module.exports = class extends Language {
 				"We hope to be a 100% customizable framework that can cater to all audiences. We do frequent updates and bugfixes when available.",
 				"If you're interested in us, check us out at https://klasa.js.org",
 				"",
-				"If you want to check my code out, go to <https://github.com/KingDGrizzle/klasa-docs-bot>",
+				"If you want to check my code out, go to <https://github.com/dirigeants/klasa-docs-bot>",
 			],
 			COMMAND_INFO_DESCRIPTION: "Provides some information about this bot.",
 			COMMAND_HELP_DESCRIPTION: "Display help for a command.",
