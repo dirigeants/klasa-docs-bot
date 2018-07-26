@@ -1,9 +1,10 @@
-import levenshtein from "fast-levenshtein";
-import CustomEntry from "./CustomEntry";
-import { REPLACERE } from "../../Constants";
+import levenshtein from 'fast-levenshtein';
+import CustomEntry from './CustomEntry';
+import { REPLACERE } from '../../Constants';
 
 export default class CustomDocument extends Map {
-	constructor (data, createdAt) {
+
+	constructor(data, createdAt) {
 		super();
 
 		this.aliases = new Map();
@@ -15,13 +16,13 @@ export default class CustomDocument extends Map {
 			keyArray: {
 				enumerable: false,
 				value: [],
-				writable: true,
+				writable: true
 			},
 			aliasKeyArray: {
 				enumerable: false,
 				value: [],
-				writable: true,
-			},
+				writable: true
+			}
 		});
 
 		this.createdAt = createdAt;
@@ -29,7 +30,7 @@ export default class CustomDocument extends Map {
 		this._patch(data);
 	}
 
-	get (item) {
+	get(item) {
 		const foundAlias = this.aliases.get(item);
 		if (foundAlias) return foundAlias;
 		for (const alias of this.aliasKeyArray) {
@@ -38,15 +39,17 @@ export default class CustomDocument extends Map {
 		for (const key of this.keyArray) {
 			if (key.test(item)) return this.get(key);
 		}
+		return undefined;
 	}
 
-	_patch (data) {
+	_patch(data) {
 		for (const value of Object.values(data)) {
 			const entry = new CustomEntry(value.content, this.createdAt, value.name);
 			this.aliases.set(value.name, entry);
-			this.set(new RegExp(`\\b(?:${value.name.replace(REPLACERE, (letter, nextWord) => `${letter}+${nextWord ? "\\W*" : ""}`)})\\b`, "i"), entry);
+			this.set(new RegExp(`\\b(?:${value.name.replace(REPLACERE, (letter, nextWord) => `${letter}+${nextWord ? '\\W*' : ''}`)})\\b`, 'i'), entry);
 		}
 		this.keyArray = [...this.keys()];
 		this.aliasKeyArray = [...this.aliases.keys()];
 	}
+
 }

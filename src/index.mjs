@@ -1,4 +1,4 @@
-import Client from "./lib/Client";
+import Client from './lib/Client';
 
 // eslint-disable-next-line no-new
 new Client();

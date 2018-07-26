@@ -1,12 +1,16 @@
-import { Event } from "klasa";
+import { Event } from 'klasa';
 
 export default class extends Event {
-	constructor (...args) {
+
+	constructor(...args) {
 		super(...args, { enabled: true });
 	}
 
-	async run (message, command) {
-		const document = message.content.match(/^((?:klasa )?docs(?:,|!| )?)(?:master|stable) (.+)/i)[2];
-		console.log(document);
+	async run(message) {
+		if (!message.content) return null;
+		const [,, branch = 'master', path] = message.content.match(/^((?:klasa )?docs(?:,|!| )?) ?(?:(master|stable))? ?(.+)/i);
+		console.log(branch, path);
+		return null;
 	}
+
 }
