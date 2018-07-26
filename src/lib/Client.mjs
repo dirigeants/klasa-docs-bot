@@ -23,7 +23,6 @@ export default class extends Client {
 			presence: {
 				status: "invisible",
 			},
-			disabledCorePieces: ["commands"],
 			regexPrefix: /^((?:klasa )?docs(?:,|!|\w)?)/i,
 			prefix: "docs, ",
 			restTimeOffset: 0,
