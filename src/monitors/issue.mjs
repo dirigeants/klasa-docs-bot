@@ -51,7 +51,7 @@ class Issue extends Monitor {
 				if (data.message !== "Not Found") this.issue(message, data);
 			}
 		} catch (err) {
-			this.client.emit("error", err);
+			// noop
 		}
 		return message.reactions.removeAll();
 	}
