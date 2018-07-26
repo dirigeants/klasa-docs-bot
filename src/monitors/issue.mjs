@@ -32,8 +32,9 @@ class Issue extends Monitor {
 
 		if (exec === null) return;
 
-		message.react("🔖");
 		try {
+			await message.react("🔖");
+
 			await message.awaitReactions((reaction, user) => reaction.emoji.name === "🔖" && !user.bot, {
 				time: 30000,
 				max: 1,
@@ -95,6 +96,6 @@ class Issue extends Monitor {
 	}
 }
 
-Issue.regex = /#(\d+)/;
+Issue.regex = /(?:^|[^<])#(\d)/;
 
 export default Issue;
