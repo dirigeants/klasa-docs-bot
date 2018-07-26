@@ -13,11 +13,13 @@
   "dependencies": {
     "ascii-table": "0.0.9",
     "discord.js": "github:discordjs/discord.js",
-    "erlpack": "github:discordapp/erlpack",
     "fast-levenshtein": "^2.0.6",
     "klasa": "github:dirigeants/klasa#esm",
     "marked": "^0.4.0",
-    "node-fetch": "^2.2.0",
+    "node-fetch": "^2.2.0"
+  },
+  "optionalDependencies": {
+    "erlpack": "github:discordapp/erlpack",
     "zlib-sync": "^0.1.4"
   },
   "devDependencies": {
