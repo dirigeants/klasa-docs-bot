@@ -13,16 +13,24 @@ export default class extends Command {
 
 	async run(message, [...params]) {
 		this.disable();
-		const { stdout, stderr } = await util.exec('git pull');
+		let msg;
+		try {
+			const { stdout, stderr } = await util.exec('git pull');
 
-		const msg = await message.sendEmbed(
-			new djs.MessageEmbed()
-				.setDescription('__**UPDATE**__')
-				.addField('stdout:', util.codeBlock('prolog', util.clean(stdout)))
-				.addField('stderr:', util.codeBlock('prolog', util.clean(stderr)))
-		);
-
-		if (stdout !== 'Already up to date.') process.exit();
+			msg = await message.sendEmbed(
+				new djs.MessageEmbed()
+					.setDescription('__**UPDATE**__')
+					.addField('stdout:', util.codeBlock('prolog', util.clean(stdout)))
+			);
+	
+			if (stdout !== 'Already up to date.') process.exit();
+		} catch(err) {
+			msg = await message.sendEmbed(
+				new djs.MessageEmbed()
+					.setDescription('__**UPDATE**__')
+					.addField('stderr:', util.codeBlock('prolog', util.clean(err)))
+			);
+		}
 		this.enable();
 		return msg;
 	}
