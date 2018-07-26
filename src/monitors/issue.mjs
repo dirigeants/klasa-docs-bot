@@ -63,7 +63,7 @@ class Issue extends Monitor {
 
 		const response = this.embed
 			.setAuthor(data.user.login, data.user.avatar_url, data.user.html_url)
-			.setTitle(`Pull Request: ${data.title}`)
+			.setTitle(data.title)
 			.setURL(data.html_url)
 			.setDescription(description)
 			.setTimestamp(new Date(data.created_at))
@@ -74,7 +74,8 @@ class Issue extends Monitor {
 			.addField("__**Files Changed:**__", data.changed_files, true)
 			.addField("__**State:**__", state, true)
 			.addField("__**Labels:**__", data.labels.map(label => label.name), true)
-			.addField("__**Install With:**__", `\`npm i ${data.head.repo.full_name}#${data.head.ref}\``);
+			.addField("__**Install With:**__", `\`npm i ${data.head.repo.full_name}#${data.head.ref}\``)
+			.setFooter(`Pull Request: ${data.number}`);
 
 		return message.sendEmbed(response);
 	}
@@ -84,18 +85,19 @@ class Issue extends Monitor {
 
 		const response = this.embed
 			.setAuthor(data.user.login, data.user.avatar_url, data.user.html_url)
-			.setTitle(`Issue: ${data.title}`)
+			.setTitle(data.title)
 			.setURL(data.html_url)
 			.setDescription(description)
 			.setTimestamp(new Date(data.created_at))
 			.setColor(this.colors.issues[data.state])
 			.addField("__**State:**__", data.state, true)
-			.addField("__**Labels:**__", data.labels.map(label => label.name), true);
+			.addField("__**Labels:**__", data.labels.map(label => label.name), true)
+			.setFooter(`Issue: ${data.number}`);
 
 		return message.sendEmbed(response);
 	}
 }
 
-Issue.regex = /(?:^|[^<])#(\d)/;
+Issue.regex = /(?:^|[^<])#(\d+)/;
 
 export default Issue;
