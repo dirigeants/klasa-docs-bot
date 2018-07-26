@@ -5,7 +5,7 @@
   "main": "src/index",
   "scripts": {
     "test": "eslint .",
-    "start": "node --experimental-modules ."
+    "start": "forever -c \"node --experimental-modules\" ."
   },
   "keywords": [],
   "author": "Frangu Vlad <kingdgrizzle@gmail.com>",
