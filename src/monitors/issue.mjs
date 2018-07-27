@@ -82,7 +82,7 @@ class Issue extends Monitor {
 			.setURL(data.html_url)
 			.setDescription(description)
 			.setTimestamp(new Date(data.created_at))
-			.addField('__**State:**__', data.state, true)
+			.addField('__**Status:**__', data.state, true)
 			.addField('__**Labels:**__', data.labels.map(label => label.name), true);
 	}
 
