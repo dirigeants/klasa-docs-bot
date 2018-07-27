@@ -22,9 +22,9 @@ export default class extends Command {
 					.setDescription('__**UPDATE**__')
 					.addField('stdout:', util.codeBlock('prolog', util.clean(stdout)))
 			);
-	
+
 			if (stdout !== 'Already up to date.') process.exit();
-		} catch(err) {
+		} catch (err) {
 			msg = await message.sendEmbed(
 				new djs.MessageEmbed()
 					.setDescription('__**UPDATE**__')

@@ -1,9 +1,11 @@
 language: node_js
 node_js:
   - "10"
-install: npm ci
+install: npm install
 jobs:
   include:
     - stage: test
-      script: bash ./travis/test.sh
-dist: trusty
+      script: npm test
+cache:
+  directories:
+    - node_modules
