@@ -23,15 +23,12 @@ class Issue extends Monitor {
 		};
 	}
 
-	get embed() {
-		return new djs.MessageEmbed()
-			.setThumbnail('https://raw.githubusercontent.com/dirigeants/klasa-website/master/assets/klasa.png');
-	}
-
 	async run(message) {
 		const exec = Issue.regex.exec(message.content);
 
 		if (exec === null) return;
+
+		let response;
 
 		try {
 			await message.react('🔖');
@@ -45,57 +42,65 @@ class Issue extends Monitor {
 				.then(res => res.json());
 
 			if (data.message !== 'Not Found') {
-				this.pullRequest(message, data);
+				response = this.pullRequest(data);
 			} else {
 				data = await fetch(`https://api.github.com/repos/${this.client.documentation.repository}/issues/${exec[1]}`)
 					.then(res => res.json());
 
-				if (data.message !== 'Not Found') this.issue(message, data);
+				if (data.message !== 'Not Found') response = this.issue(data);
 			}
 		} catch (err) {
 			// noop
 		}
-		return message.reactions.removeAll();
+		await message.reactions.removeAll();
+
+		if (!response) return;
+
+		const msg = await message.sendEmbed(response);
+		await msg.react('🗑');
+
+		try {
+			await msg.awaitReactions((reaction, user) => reaction.emoji.name === '🗑' && !user.bot, {
+				time: 60000,
+				max: 1
+			});
+			await msg.delete();
+		} catch (err) {
+			await msg.reactions.removeAll();
+		}
 	}
 
-	pullRequest(message, data) {
-		const state = data.state === 'closed' && data.merged ? 'merged' : data.state;
+	_shared(data) {
 		const description = data.body.length > 2048 ? `${data.body.slice(0, 2045)}...` : data.body;
 
-		const response = this.embed
+		return new djs.MessageEmbed()
+			.setThumbnail('https://raw.githubusercontent.com/dirigeants/klasa-website/master/assets/klasa.png')
 			.setAuthor(data.user.login, data.user.avatar_url, data.user.html_url)
 			.setTitle(data.title)
 			.setURL(data.html_url)
 			.setDescription(description)
 			.setTimestamp(new Date(data.created_at))
+			.addField('__**State:**__', data.state, true)
+			.addField('__**Labels:**__', data.labels.map(label => label.name), true);
+	}
+
+	pullRequest(data) {
+		const state = data.state === 'closed' && data.merged ? 'merged' : data.state;
+
+		return this._shared(data)
 			.setColor(this.colors.pullRequests[state])
 			.addField('__**Additions:**__', data.additions, true)
 			.addField('__**Deletions:**__', data.deletions, true)
 			.addField('__**Commits:**__', data.commits, true)
 			.addField('__**Files Changed:**__', data.changed_files, true)
-			.addField('__**State:**__', state, true)
-			.addField('__**Labels:**__', data.labels.map(label => label.name), true)
 			.addField('__**Install With:**__', `\`npm i ${data.head.repo.full_name}#${data.head.ref}\``)
 			.setFooter(`Pull Request: ${data.number}`);
-
-		return message.sendEmbed(response);
 	}
 
-	issue(message, data) {
-		const description = data.body.length > 2048 ? `${data.body.slice(0, 2045)}...` : data.body;
-
-		const response = this.embed
-			.setAuthor(data.user.login, data.user.avatar_url, data.user.html_url)
-			.setTitle(data.title)
-			.setURL(data.html_url)
-			.setDescription(description)
-			.setTimestamp(new Date(data.created_at))
+	issue(data) {
+		return this._shared(data)
 			.setColor(this.colors.issues[data.state])
-			.addField('__**State:**__', data.state, true)
-			.addField('__**Labels:**__', data.labels.map(label => label.name), true)
 			.setFooter(`Issue: ${data.number}`);
-
-		return message.sendEmbed(response);
 	}
 
 }

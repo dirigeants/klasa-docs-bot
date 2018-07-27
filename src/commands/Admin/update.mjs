@@ -11,11 +11,11 @@ export default class extends Command {
 		});
 	}
 
-	async run(message, [...params]) {
+	async run(message) {
 		this.disable();
 		let msg;
 		try {
-			const { stdout, stderr } = await util.exec('git pull');
+			const { stdout } = await util.exec('git pull');
 
 			msg = await message.sendEmbed(
 				new djs.MessageEmbed()
