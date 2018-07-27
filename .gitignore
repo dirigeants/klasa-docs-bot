@@ -58,5 +58,5 @@ typings/
 .env
 
 src/bwd
-.vs/
 config.mjs
+.vs/
