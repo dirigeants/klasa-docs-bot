@@ -35,7 +35,8 @@ class Issue extends Monitor {
 
 			await message.awaitReactions((reaction, user) => reaction.emoji.name === '🔖' && !user.bot, {
 				time: 30000,
-				max: 1
+				max: 1,
+				errors: ['time']
 			});
 
 			let data = await fetch(`https://api.github.com/repos/${this.client.documentation.repository}/pulls/${exec[1]}`)
@@ -62,7 +63,8 @@ class Issue extends Monitor {
 		try {
 			await msg.awaitReactions((reaction, user) => reaction.emoji.name === '🗑' && !user.bot, {
 				time: 60000,
-				max: 1
+				max: 1,
+				errors: ['time']
 			});
 			await msg.delete();
 		} catch (err) {
