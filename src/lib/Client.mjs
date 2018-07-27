@@ -17,6 +17,7 @@ export default class extends Client {
 		super({
 			commandEditing: true,
 			commandLogging: true,
+			console: { useColor: true },
 			disableEveryone: true,
 			disabledEvents: ['TYPING_START'],
 			pieceDefaults: {
