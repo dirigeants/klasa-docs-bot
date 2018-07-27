@@ -1,7 +1,7 @@
 import { Urls } from '../Constants';
 const { GH_API, RAW_URL } = Urls;
 import BranchDocument from './BranchDocument';
-import Util, { ExtendedMap } from '../Util';
+import { ExtendedMap } from '../Util';
 import fetch from 'node-fetch';
 
 export default class Documentation extends ExtendedMap {
@@ -28,8 +28,7 @@ export default class Documentation extends ExtendedMap {
 				.filter(i => !!i);
 			for (const item of branches) {
 				const doc = new BranchDocument(this, item);
-				this.aliases.set(item.branch, doc);
-				this.set(new RegExp(`\\b(?:${Util.generateRegex(item.branch)})\\b`, 'i'), doc);
+				this.add(item.branch, doc);
 			}
 			this.keyArray = [...this.keys()];
 			this.aliasKeyArray = [...this.aliases.keys()];

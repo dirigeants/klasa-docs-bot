@@ -6,18 +6,16 @@ const TS = new Timestamp('DD.MM.YYYY [at] HH:mm:ss');
 
 export default class BaseEntry {
 
-	constructor(documentation, string, createdAt, name, parent, branch, prettyName) {
+	constructor(documentation, string, createdAt, name, parent, prettyName) {
 		this.header = '';
 		this.content = '';
 		this.pages = [];
-		this.listIndex = 0;
-		this.orderedList = false;
 
 		this.documentation = documentation;
 		this.createdAt = TS.displayUTC(createdAt);
 		this.name = name;
 		this.parent = parent;
-		this.branch = branch;
+		this.branch = documentation.branch;
 		this.prettyName = prettyName;
 
 		this._patch(string);
@@ -25,10 +23,8 @@ export default class BaseEntry {
 
 	_patch(string) {
 		this.header = '';
-		this.pages = [];
 		this.content = '';
-		this.listIndex = 0;
-		this.orderedList = false;
+		this.pages = [];
 
 		return string;
 	}

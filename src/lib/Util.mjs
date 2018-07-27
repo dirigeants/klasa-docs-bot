@@ -23,7 +23,7 @@ export default class Util {
 		return string.replace(REPLACERE, (letter, nextWord) => `${letter}+${nextWord ? '\\W*' : ''}`);
 	}
 
-	static formatString(string, branch, documentation) {
+	static formatString(string, documentation) {
 		// TODO: Find all @link / @tutorial and parse them
 		return string;
 	}
@@ -56,21 +56,31 @@ export default class Util {
 
 	static wrapURL(string, documentation) {
 		if (primitives.includes(string)) return `[**${string}**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/${string})`;
-		return escapes.includes(string) ? `\\${string}` : string;
+		if (escapes.includes(string)) return `\\${string}`;
+		const item = documentation.get(string);
+		if (item) return `[**${string}**](${item.url})`;
+		return string;
 	}
 
 }
 
 export class ExtendedMap extends Map {
 
-	constructor(...args) {
-		super(...args);
-
-		this.aliases = new Map();
+	constructor(parent = null) {
+		super();
 
 		/**
-		 * Array of regex keys, to be easily tested over flags
+		 * The parent for this map
+		 * @type {?ExternalMap}
 		 */
+		this.parent = parent;
+
+		/**
+		 * Map of aliases for the current entries
+		 * @type {Map<string, *>}
+		 */
+		this.aliases = new Map();
+
 		Object.defineProperties(this, {
 			keyArray: {
 				enumerable: false,
@@ -85,17 +95,28 @@ export class ExtendedMap extends Map {
 		});
 	}
 
-
+	/**
+	 * Gets an item from the map, checking for aliases or typos.
+	 * @param {string} item The item to search for
+	 * @returns {*}
+	 * @memberof ExtendedMap
+	 */
 	get(item) {
 		const foundAlias = this.aliases.get(item);
 		if (foundAlias) return foundAlias;
 		for (const alias of this.aliasKeyArray) {
-			if (levenshtein.get(alias, item) <= 5) return this.aliases.get(alias);
+			if (levenshtein.get(alias, item) <= 3) return this.aliases.get(alias);
 		}
 		for (const key of this.keyArray) {
-			if (key.test(item)) return super.get(key);
+			if (key.test(item)) return this.get(key);
 		}
 		return undefined;
+	}
+
+	add(item, value) {
+		this.set(new RegExp(`\\b(?:${Util.generateRegex(item)})\\b`, 'i'), value);
+		this.aliases.set(item, value);
+		if (this.parent) this.parent.aliases.set(item, value);
 	}
 
 }
