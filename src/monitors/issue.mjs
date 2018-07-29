@@ -53,6 +53,9 @@ class Issue extends Monitor {
 		} catch (err) {
 			// noop
 		}
+
+		if (message.deleted) return;
+
 		await message.reactions.removeAll();
 
 		if (!response) return;
@@ -68,6 +71,8 @@ class Issue extends Monitor {
 			});
 			await msg.delete();
 		} catch (err) {
+			if (msg.deleted) return;
+
 			await msg.reactions.removeAll();
 		}
 	}
