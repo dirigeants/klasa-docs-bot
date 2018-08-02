@@ -33,7 +33,7 @@ class Issue extends Monitor {
 		try {
 			await message.react('🔖');
 
-			await message.awaitReactions((reaction, user) => reaction.emoji.name === '🔖' && !user.bot, {
+			await message.awaitReactions((reaction, user) => reaction.emoji.name === '🔖' && !user.bot && user.id === msg.author.id, {
 				time: 30000,
 				max: 1,
 				errors: ['time']
@@ -64,7 +64,7 @@ class Issue extends Monitor {
 		await msg.react('🗑');
 
 		try {
-			await msg.awaitReactions((reaction, user) => reaction.emoji.name === '🗑' && !user.bot, {
+			await msg.awaitReactions((reaction, user) => reaction.emoji.name === '🗑' && !user.bot && user.id === msg.author.id, {
 				time: 60000,
 				max: 1,
 				errors: ['time']
