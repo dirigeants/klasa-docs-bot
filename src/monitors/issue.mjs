@@ -112,6 +112,6 @@ class Issue extends Monitor {
 
 }
 
-Issue.regex = /\B#(\d+)\b/;
+Issue.regex = /(?:^|\s)#(\d+)\b/;
 
 export default Issue;
