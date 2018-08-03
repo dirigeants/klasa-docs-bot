@@ -1,6 +1,6 @@
 import { Monitor } from 'klasa';
 import djs from 'discord.js';
-import fetch from 'chainfetch';
+import fetch from 'node-fetch';
 
 class Issue extends Monitor {
 
@@ -39,12 +39,14 @@ class Issue extends Monitor {
 				errors: ['time']
 			});
 
-			let { body: data } = await fetch.get(`https://api.github.com/repos/${this.client.documentation.repository}/pulls/${id}`);
+			let data = await fetch(`https://api.github.com/repos/${this.client.documentation.repository}/pulls/${exec[1]}`)
+				.then(res => res.json());
 
 			if (data.message !== 'Not Found') {
 				response = this.pullRequest(data);
 			} else {
-				({ body: data } = await fetch.get(`https://api.github.com/repos/${this.client.documentation.repository}/issues/${id}`));
+				data = await fetch(`https://api.github.com/repos/${this.client.documentation.repository}/issues/${exec[1]}`)
+					.then(res => res.json());
 
 				if (data.message !== 'Not Found') response = this.issue(data);
 			}
@@ -98,7 +100,7 @@ class Issue extends Monitor {
 			.addField('__**Commits:**__', data.commits, true)
 			.addField('__**Files Changed:**__', data.changed_files, true)
 			.setFooter(`Pull Request: ${data.number}`);
-		if (data.head.repo && data.state !== 'closed') embed.addField('__**Install With:**__', `\`npm i ${data.head.repo.full_name}#${data.head.ref}\``)
+		if (data.head.repo && data.state !== 'closed') embed.addField('__**Install With:**__', `\`npm i ${data.head.repo.full_name}#${data.head.ref}\``);
 		return embed;
 	}
 

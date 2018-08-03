@@ -2,7 +2,7 @@ import { Urls } from '../Constants';
 const { GH_API, RAW_URL } = Urls;
 import BranchDocument from './BranchDocument';
 import { ExtendedMap } from '../Util';
-import fetch from 'chainfetch';
+import fetch from 'node-fetch';
 
 export default class Documentation extends ExtendedMap {
 
@@ -15,12 +15,15 @@ export default class Documentation extends ExtendedMap {
 	}
 
 	async init() {
-		const branchInfo = await fetch.get(`${GH_API}/repos/${this.repository}/branches/${this.jsonBranch}`).catch(() => null);
+		const branchInfo = await fetch(`${GH_API}/repos/${this.repository}/branches/${this.jsonBranch}`).then(res => res.json()).catch(() => null);
 		if (branchInfo) {
 			const branches = (await Promise.all(
 				this.branches.map(branch =>
-					fetch.get(`${RAW_URL}/${this.repository}/${this.jsonBranch}/${branch}.json`)
-						.then(({ body }) => Object.assign(body, { branch }))
+					fetch(`${RAW_URL}/${this.repository}/${this.jsonBranch}/${branch}.json`)
+						.then(async res => {
+							const json = await res.json();
+							return Object.assign(json, { branch });
+						})
 						.catch(() => null))))
 				.filter(i => !!i);
 			for (const item of branches) {
