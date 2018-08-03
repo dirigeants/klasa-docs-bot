@@ -39,16 +39,17 @@ class Issue extends Monitor {
 				errors: ['time']
 			});
 
-			let data = await fetch.get(`https://api.github.com/repos/${this.client.documentation.repository}/pulls/${id}`);
+			let { body: data } = await fetch.get(`https://api.github.com/repos/${this.client.documentation.repository}/pulls/${id}`);
 
 			if (data.message !== 'Not Found') {
 				response = this.pullRequest(data);
 			} else {
-				data = await fetch.get(`https://api.github.com/repos/${this.client.documentation.repository}/issues/${id}`);
+				({ body: data } = await fetch.get(`https://api.github.com/repos/${this.client.documentation.repository}/issues/${id}`));
 
 				if (data.message !== 'Not Found') response = this.issue(data);
 			}
 		} catch (err) {
+			console.log(err);
 			// noop
 		}
 
@@ -91,15 +92,15 @@ class Issue extends Monitor {
 
 	pullRequest(data) {
 		const state = data.state === 'closed' && data.merged ? 'merged' : data.state;
-
-		return this._shared(data)
+		const embed = this._shared(data)
 			.setColor(this.colors.pullRequests[state])
 			.addField('__**Additions:**__', data.additions, true)
 			.addField('__**Deletions:**__', data.deletions, true)
 			.addField('__**Commits:**__', data.commits, true)
 			.addField('__**Files Changed:**__', data.changed_files, true)
-			.addField('__**Install With:**__', `\`npm i ${data.head.repo.full_name}#${data.head.ref}\``)
 			.setFooter(`Pull Request: ${data.number}`);
+		if (data.head.repo && data.state !== 'closed') embed.addField('__**Install With:**__', `\`npm i ${data.head.repo.full_name}#${data.head.ref}\``)
+		return embed;
 	}
 
 	issue(data) {
