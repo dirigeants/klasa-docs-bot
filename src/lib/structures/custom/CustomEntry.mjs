@@ -3,7 +3,7 @@ const { lexer } = marked;
 import BaseEntry from '../base/BaseEntry';
 import Util from '../../Util';
 
-export default class extends BaseEntry {
+export default class CustomEntry extends BaseEntry {
 
 	_patch(string) {
 		super._patch(string);
@@ -17,13 +17,9 @@ export default class extends BaseEntry {
 			content: [
 				`The following guide (which you can read [here](${this._generateURL(this.name)})) has the following headings:`,
 				'',
-				...headings.map(heading => Util.formatString(heading, this.branch, this.documentation)).map(heading => `• **${heading}**`)
+				...headings.map(heading => Util.formatString(heading, this.documentation)).map(heading => `• **${heading}**`)
 			].join('\n')
 		});
-
-		this.content = '';
-		this.header = '';
-		this.listIndex = 0;
 	}
 
 }

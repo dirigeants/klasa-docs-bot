@@ -116,7 +116,7 @@ export class ExtendedMap extends Map {
 	add(item, value) {
 		this.set(new RegExp(`\\b(?:${Util.generateRegex(item)})\\b`, 'i'), value);
 		this.aliases.set(item, value);
-		if (this.parent && this.parent instanceof ExtendedMap) this.parent.aliases.set(item, value);
+		if (this.parent instanceof ExtendedMap) this.parent.aliases.set(item, value);
 	}
 
 }

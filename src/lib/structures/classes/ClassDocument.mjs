@@ -22,7 +22,7 @@ export default class ClassDocument extends ExtendedMap {
 
 	_patch(clazz) {
 		this.name = clazz.name;
-		this.description = Util.formatString(clazz.description, this.branch, this.documentation);
+		this.description = Util.formatString(clazz.description, this.documentation);
 		this.extends = Util.parseExternals(clazz.extends, this.documentation);
 		this.construct = this._parseConstructor(clazz.construct);
 
@@ -32,7 +32,7 @@ export default class ClassDocument extends ExtendedMap {
 
 	_parseConstructor(construct) {
 		if (!construct) return null;
-		const embed = new Discord.MessageEmbed().setColor(0x3669FA).setThumbnail('https://raw.githubusercontent.com/dirigeants/klasa-website/master/assets/klasa.png');
+		const embed = this._embedBase.setThumbnail('https://raw.githubusercontent.com/dirigeants/klasa-website/master/assets/klasa.png');
 		const constructString = [`new ${construct.name}(`];
 		const constructParams = [];
 		const fieldDescription = [];
@@ -78,6 +78,10 @@ export default class ClassDocument extends ExtendedMap {
 
 	get repoURL() {
 		return `https://github.com/dirigeants/klasa/blob/${encodeURIComponent(this.branch)}/${this.path}`;
+	}
+
+	get _embedBase() {
+		return new Discord.MessageEmbed().setColor(0x3669FA);
 	}
 
 }

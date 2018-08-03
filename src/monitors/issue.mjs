@@ -1,6 +1,6 @@
 import { Monitor } from 'klasa';
 import djs from 'discord.js';
-import fetch from 'node-fetch';
+import fetch from 'chainfetch';
 
 class Issue extends Monitor {
 
@@ -28,25 +28,23 @@ class Issue extends Monitor {
 
 		if (exec === null) return;
 
+		const id = exec[1];
 		let response;
 
 		try {
 			await message.react('🔖');
-
-			await message.awaitReactions((reaction, user) => reaction.emoji.name === '🔖' && !user.bot, {
+			await message.awaitReactions((reaction, user) => reaction.emoji.name === '🔖' && user === message.author, {
 				time: 30000,
 				max: 1,
 				errors: ['time']
 			});
 
-			let data = await fetch(`https://api.github.com/repos/${this.client.documentation.repository}/pulls/${exec[1]}`)
-				.then(res => res.json());
+			let { body: data } = await fetch.get(`https://api.github.com/repos/${this.client.documentation.repository}/pulls/${id}`);
 
 			if (data.message !== 'Not Found') {
 				response = this.pullRequest(data);
 			} else {
-				data = await fetch(`https://api.github.com/repos/${this.client.documentation.repository}/issues/${exec[1]}`)
-					.then(res => res.json());
+				({ body: data } = await fetch.get(`https://api.github.com/repos/${this.client.documentation.repository}/issues/${id}`));
 
 				if (data.message !== 'Not Found') response = this.issue(data);
 			}
@@ -61,10 +59,10 @@ class Issue extends Monitor {
 		if (!response) return;
 
 		const msg = await message.sendEmbed(response);
-		await msg.react('🗑');
 
 		try {
-			await msg.awaitReactions((reaction, user) => reaction.emoji.name === '🗑' && !user.bot && user.id === msg.author.id, {
+			await msg.react('🗑');
+			await msg.awaitReactions((reaction, user) => reaction.emoji.name === '🗑' && user === message.author, {
 				time: 60000,
 				max: 1,
 				errors: ['time']
@@ -93,15 +91,15 @@ class Issue extends Monitor {
 
 	pullRequest(data) {
 		const state = data.state === 'closed' && data.merged ? 'merged' : data.state;
-
-		return this._shared(data)
+		const embed = this._shared(data)
 			.setColor(this.colors.pullRequests[state])
 			.addField('__**Additions:**__', data.additions, true)
 			.addField('__**Deletions:**__', data.deletions, true)
 			.addField('__**Commits:**__', data.commits, true)
 			.addField('__**Files Changed:**__', data.changed_files, true)
-			.addField('__**Install With:**__', `\`npm i ${data.head.repo.full_name}#${data.head.ref}\``)
 			.setFooter(`Pull Request: ${data.number}`);
+		if (data.head.repo && data.state !== 'closed') embed.addField('__**Install With:**__', `\`npm i ${data.head.repo.full_name}#${data.head.ref}\``)
+		return embed;
 	}
 
 	issue(data) {
