@@ -49,7 +49,6 @@ class Issue extends Monitor {
 				if (data.message !== 'Not Found') response = this.issue(data);
 			}
 		} catch (err) {
-			console.log(err);
 			// noop
 		}
 
