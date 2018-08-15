@@ -29,15 +29,15 @@ class Issue extends Monitor {
 		if (exec === null) return;
 
 		const id = exec[1];
-		let response;
+		let response, reacter;
 
 		try {
 			await message.react('🔖');
-			await message.awaitReactions((reaction, user) => reaction.emoji.name === '🔖' && user === message.author, {
+			reacter = await message.awaitReactions((reaction, user) => reaction.emoji.name === '🔖' && !user.bot, {
 				time: 30000,
 				max: 1,
 				errors: ['time']
-			});
+			}).then(r => r.first().users.find(u => !u.bot));
 
 			let data = await fetch(`https://api.github.com/repos/${this.client.documentation.repository}/pulls/${exec[1]}`)
 				.then(res => res.json());
@@ -64,7 +64,7 @@ class Issue extends Monitor {
 
 		try {
 			await msg.react('🗑');
-			await msg.awaitReactions((reaction, user) => reaction.emoji.name === '🗑' && user === message.author, {
+			await msg.awaitReactions((reaction, user) => reaction.emoji.name === '🗑' && user === reacter, {
 				time: 60000,
 				max: 1,
 				errors: ['time']
