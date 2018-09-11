@@ -24,9 +24,9 @@ export default class Documentation extends ExtendedMap {
 							const json = await res.json();
 							return Object.assign(json, { branch });
 						})
-						.catch(() => null))))
-				.filter(i => !!i);
+						.catch(() => null))));
 			for (const item of branches) {
+				if (!item) continue;
 				const doc = new BranchDocument(this, item);
 				this.add(item.branch, doc);
 			}
