@@ -3,10 +3,7 @@ import { Event } from 'klasa';
 export default class extends Event {
 
 	constructor(...args) {
-		super(...args, {
-			enabled: true,
-			once: true
-		});
+		super(...args, { once: true });
 	}
 
 	async run() {
