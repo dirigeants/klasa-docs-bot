@@ -29,7 +29,10 @@ export default class extends Client {
 				}
 			},
 			presence: {
-				status: 'invisible'
+				activity: {
+					name: 'documentaries',
+					type: 'WATCHING'
+				}
 			},
 			regexPrefix: /^((?:klasa )?docs(?:,|!|\w)?)/i,
 			prefix: 'docs, ',
