@@ -8,7 +8,12 @@
     "start": "forever -c \"node --experimental-modules\" ."
   },
   "keywords": [],
-  "author": "Frangu Vlad <kingdgrizzle@gmail.com>",
+  "author": "Dirigeants",
+  "contributors": [
+    "KingDGrizzle <kingdgrizzle@gmail.com>",
+    "bdistin",
+    "kyranet <kyradiscord@gmail.com>"
+  ],
   "license": "MIT",
   "dependencies": {
     "ascii-table": "0.0.9",
