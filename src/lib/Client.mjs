@@ -9,7 +9,10 @@ import Documentation from './structures/Documentation';
 import { Client } from 'klasa';
 
 Client.defaultPermissionLevels
-	.add(8, ({ client, author }) => client.configs.staff.includes(author.id));
+	.add(8, ({ client, author }) => client.settings.staff.includes(author.id));
+
+Client.defaultClientSchema
+	.add('staff', 'user', { array: true });
 
 export default class extends Client {
 
