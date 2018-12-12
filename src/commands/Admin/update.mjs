@@ -16,14 +16,18 @@ export default class extends Command {
 		let msg;
 		try {
 			const { stdout } = await util.exec('git pull');
+			const cleaned = util.clean(stdout);
 
 			msg = await message.sendEmbed(
 				new djs.MessageEmbed()
 					.setDescription('__**UPDATE**__')
-					.addField('stdout:', util.codeBlock('prolog', util.clean(stdout)))
+					.addField('stdout:', util.codeBlock('prolog', cleaned))
 			);
 
-			if (stdout !== 'Already up to date.') process.exit();
+			if (!cleaned.startsWith('Already up to date.')) {
+				await util.exec('yarn');
+				process.exit();
+			}
 		} catch (err) {
 			msg = await message.sendEmbed(
 				new djs.MessageEmbed()
