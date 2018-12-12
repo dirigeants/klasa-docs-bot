@@ -34,8 +34,7 @@ export default class extends Client {
 					type: 'WATCHING'
 				}
 			},
-			regexPrefix: /^((?:klasa )?docs(?:,|!|\w)?)/i,
-			prefix: 'docs, ',
+			regexPrefix: /^(?:klasa )?docs[,!\w]?/i,
 			restTimeOffset: 0
 		});
 
