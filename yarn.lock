@@ -160,13 +160,13 @@ delayed-stream@~1.0.0:
 
 "discord.js@github:discordjs/discord.js":
   version "12.0.0-dev"
-  uid efbbfbcec6d9b090eb7053bbb39acea50c46c517
-  resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/efbbfbcec6d9b090eb7053bbb39acea50c46c517"
+  uid "73be952406e54cb7626bc0f07085a32b7462126c"
+  resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/73be952406e54cb7626bc0f07085a32b7462126c"
   dependencies:
     form-data "^2.3.3"
     node-fetch "^2.3.0"
     pako "^1.0.8"
-    prism-media amishshah/prism-media
+    prism-media "^1.0.0"
     setimmediate "^1.0.5"
     tweetnacl "^1.0.1"
     ws "^6.1.3"
@@ -578,9 +578,9 @@ prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
 
-prism-media@amishshah/prism-media:
-  version "0.3.1"
-  resolved "https://codeload.github.com/amishshah/prism-media/tar.gz/1e336c9a20dd0928ef3bdc2075ab58d1521fb323"
+prism-media@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/prism-media/-/prism-media-1.0.0.tgz#a289eeb9fa37ca523dc41667ec39c3bebab3d34c"
 
 progress@^2.0.0:
   version "2.0.3"
