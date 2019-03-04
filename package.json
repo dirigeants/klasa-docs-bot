@@ -28,7 +28,7 @@
     "zlib-sync": "^0.1.4"
   },
   "devDependencies": {
-    "eslint": "^5.14.1",
+    "eslint": "^5.15.0",
     "eslint-config-klasa": "github:dirigeants/klasa-lint"
   }
 }
