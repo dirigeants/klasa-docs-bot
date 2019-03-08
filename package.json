@@ -4,7 +4,7 @@
   "description": "The klasa docs bot, what else!",
   "main": "src/index",
   "scripts": {
-    "test": "npx eslint src",
+    "test:lint": "npx eslint src",
     "start": "forever -c \"node --experimental-modules\" ."
   },
   "keywords": [],
@@ -20,7 +20,7 @@
     "discord.js": "github:discordjs/discord.js",
     "fast-levenshtein": "^2.0.6",
     "klasa": "github:dirigeants/klasa#esm",
-    "marked": "^0.6.0",
+    "marked": "^0.6.1",
     "node-fetch": "^2.3.0"
   },
   "optionalDependencies": {
@@ -28,7 +28,7 @@
     "zlib-sync": "^0.1.4"
   },
   "devDependencies": {
-    "eslint": "^5.12.1",
+    "eslint": "^5.15.1",
     "eslint-config-klasa": "github:dirigeants/klasa-lint"
   }
 }
