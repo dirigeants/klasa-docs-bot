@@ -337,9 +337,9 @@ form-data@^2.3.3:
     combined-stream "^1.0.6"
     mime-types "^2.1.12"
 
-fs-nextra@^0.3.2:
-  version "0.3.7"
-  resolved "https://registry.yarnpkg.com/fs-nextra/-/fs-nextra-0.3.7.tgz#81b5b0a5acaebe203c58beaa219b220333557f2a"
+fs-nextra@^0.4.3:
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/fs-nextra/-/fs-nextra-0.4.5.tgz#0f44a00dd6c0547adaf59ce875e59941d0c70664"
 
 fs.realpath@^1.0.0:
   version "1.0.0"
@@ -451,10 +451,10 @@ json-stable-stringify-without-jsonify@^1.0.1:
 
 "klasa@github:dirigeants/klasa#esm":
   version "0.5.0-dev"
-  uid "8ac8c95fdfb9c4a8b58db8aed80452a678a28fe7"
-  resolved "https://codeload.github.com/dirigeants/klasa/tar.gz/8ac8c95fdfb9c4a8b58db8aed80452a678a28fe7"
+  uid fe2bbcd4db3f8ad959a4bb31102c4dbeff0aca1f
+  resolved "https://codeload.github.com/dirigeants/klasa/tar.gz/fe2bbcd4db3f8ad959a4bb31102c4dbeff0aca1f"
   dependencies:
-    fs-nextra "^0.3.2"
+    fs-nextra "^0.4.3"
 
 levn@^0.3.0, levn@~0.3.0:
   version "0.3.0"
