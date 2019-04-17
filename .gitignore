@@ -60,5 +60,6 @@ typings/
 src/bwd
 config.mjs
 .vs/
+dist/
 
 package-lock\.json
