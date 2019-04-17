@@ -6,7 +6,8 @@
   "scripts": {
     "test:lint": "npx tslint -c tslint.json -p ./tsconfig.json",
     "build": "tsc",
-    "start": "forever -c \"node\" ."
+    "start": "forever -c \"node\" .",
+    "test": "node ."
   },
   "keywords": [],
   "author": "Dirigeants",
@@ -29,7 +30,9 @@
     "zlib-sync": "^0.1.4"
   },
   "devDependencies": {
+    "@types/marked": "^0.6.5",
     "@types/node": "^11.13.4",
+    "@types/node-fetch": "^2.3.2",
     "@types/ws": "^6.0.1",
     "eslint": "^5.16.0",
     "eslint-config-klasa": "github:dirigeants/klasa-lint",

@@ -16,7 +16,9 @@
             "node",
             "discord.js",
             "ws",
-            "klasa"
+            "klasa",
+            "marked",
+            "node-fetch"
         ]
     },
     "include": [

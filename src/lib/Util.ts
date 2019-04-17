@@ -65,7 +65,7 @@ export default class Util {
 export class ExtendedMap extends Map {
 	parent?: ExtendedMap;
 	aliases: Map<string, any>;
-	aliasKeyArray: string[];
+	aliasesKeyArray: string[];
 	keyArray: any[];
 	constructor(parent = null) {
 		super();
@@ -91,7 +91,7 @@ export class ExtendedMap extends Map {
 	get(item: string) {
 		const foundAlias = this.aliases.get(item);
 		if (foundAlias) return foundAlias;
-		for (const alias of this.aliasKeyArray) {
+		for (const alias of this.aliasesKeyArray) {
 			if (levenshtein.get(alias, item) <= 3) return this.aliases.get(alias);
 		}
 		for (const key of this.keyArray) {
