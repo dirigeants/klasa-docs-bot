@@ -1,14 +1,14 @@
 {
     "compilerOptions": {
         "alwaysStrict": true,
-        "declaration": true,
+        "declaration": false,
         "lib": [
             "esnext"
         ],
         "module": "commonjs",
         "moduleResolution": "node",
         "noEmitOnError": true,
-        "outDir": "/dist",
+        "outDir": "dist",
         "target": "esnext",
         "sourceMap": false,
         "resolveJsonModule": true,
@@ -19,5 +19,7 @@
             "klasa"
         ]
     },
-    "include": ["src/**/*"]
+    "include": [
+        "./src/**/**/*.ts"
+    ]
 }

@@ -4,7 +4,7 @@
   "description": "The klasa docs bot, what else!",
   "main": "dist/index",
   "scripts": {
-    "test:lint": "npx tslint 'src/*.ts'",
+    "test:lint": "npx tslint -c tslint.json -p ./tsconfig.json",
     "build": "tsc",
     "start": "forever -c \"node\" ."
   },
