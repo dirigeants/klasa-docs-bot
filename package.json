@@ -2,11 +2,11 @@
   "name": "klasa-docs-bot",
   "version": "1.0.0",
   "description": "The klasa docs bot, what else!",
-  "main": "src/index",
+  "main": "dist/index",
   "scripts": {
     "test:lint": "npx tslint 'src/*.ts'",
     "build": "tsc",
-    "start": "forever -c \"node --experimental-modules\" ."
+    "start": "forever -c \"node\" ."
   },
   "keywords": [],
   "author": "Dirigeants",

@@ -57,8 +57,11 @@ typings/
 # dotenv environment variables file
 .env
 
+# Temp file so ts doesn't yell
+config.ts
+
 src/bwd
-config.mjs
+config.js
 .vs/
 dist/
 
