@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "alwaysStrict": true,
+        "declaration": true,
+        "lib": [
+            "esnext"
+        ],
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noEmitOnError": true,
+        "outDir": "/dist",
+        "target": "esnext",
+        "sourceMap": false,
+        "resolveJsonModule": true,
+        "types": [
+            "node",
+            "discord.js",
+            "ws",
+            "klasa"
+        ]
+    },
+    "include": ["src/**/*"]
+}
