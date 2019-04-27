@@ -21,7 +21,7 @@
     "fast-levenshtein": "^2.0.6",
     "klasa": "github:dirigeants/klasa#esm",
     "marked": "^0.6.2",
-    "node-fetch": "^2.4.0"
+    "node-fetch": "^2.4.1"
   },
   "optionalDependencies": {
     "erlpack": "github:discordapp/erlpack",
