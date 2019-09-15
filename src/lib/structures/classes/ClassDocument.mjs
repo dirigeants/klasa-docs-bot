@@ -24,7 +24,6 @@ export default class ClassDocument extends ExtendedMap {
 		this.name = clazz.name;
 		this.description = Util.formatString(clazz.description, this.documentation);
 		this.extends = Util.parseExternals(clazz.extends, this.documentation);
-		this.construct = this._parseConstructor(clazz.construct);
 
 		this.keyArray = [...this.staticProps.keys(), ...this.props.keys(), ...this.staticMethods.keys(), ...this.methods.keys(), ...this.events.keys()];
 		this.aliasKeyArray = [...this.aliases.keys()];
@@ -65,6 +64,7 @@ export default class ClassDocument extends ExtendedMap {
 				'```'
 			].join('\n'));
 		if (fieldDescription.length) embed.addField(`Parameters`, fieldDescription.join('\n'));
+		this.construct = embed;
 		return embed;
 	}
 

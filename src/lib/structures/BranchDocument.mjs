@@ -29,8 +29,10 @@ export default class BranchDocument extends ExtendedMap {
 				this.custom.add(category, newdoc);
 			}
 		}
+		// create external class
+		// Create typedef class
 		for (const clazz of data.classes) {
-			const doc = this.aliases.get(clazz.name);
+			const doc = this.classes.get(clazz.name);
 			if (doc) {
 				doc._patch(clazz);
 			} else {
@@ -38,6 +40,9 @@ export default class BranchDocument extends ExtendedMap {
 				this.classes.add(clazz.name, newdoc);
 			}
 		}
+		for (const clazz of data.classes) this.classes.get(clazz.name)._parseConstructor(clazz.construct);
+		// patch typedef class
+		// patch externals??
 		this.keyArray = [...this.custom.keys(), ...this.externals.keys(), ...this.classes.keys(), ...this.typedefs.keys()];
 		this.aliasKeyArray = [...this.aliases.keys()];
 	}

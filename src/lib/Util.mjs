@@ -28,7 +28,7 @@ export default class Util {
 		return string;
 	}
 
-	static parseExternals(externals, documentation) {
+	static formatExternals(externals, documentation) {
 		// Fetch externals, return array of externals
 		return externals;
 	}
@@ -44,7 +44,7 @@ export default class Util {
 				}
 				continue;
 			}
-			returnString.push(type[0]);
+			returnString.push(Util.wrapURL(type[0], documentation));
 		}
 		if (temp.length) returnString.push(temp);
 		return returnString.join(' | ');
