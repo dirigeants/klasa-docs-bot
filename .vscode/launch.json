@@ -8,12 +8,14 @@
 			"type": "node",
 			"request": "launch",
 			"name": "Launch Program",
-			"program": "${workspaceFolder}\\src\\index.mjs",
-			"runtimeArgs": [
-				"--experimental-modules"
+			"program": "${workspaceFolder}\\src\\index.ts",
+			"cwd": "${workspaceFolder}",
+			"outFiles": [
+				"${workspaceFolder}\\dist\\**\\*.js"
 			],
 			"console": "integratedTerminal",
-			"autoAttachChildProcesses": true
+			"autoAttachChildProcesses": true,
+			"outputCapture": "std"
 		}
 	]
 }

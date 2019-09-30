@@ -1,34 +1,44 @@
 {
   "name": "klasa-docs-bot",
-  "version": "1.0.0",
-  "description": "The klasa docs bot, what else!",
-  "main": "src/index",
+  "version": "2.0.0",
+  "description": "Simple to use Discord Bot to link documentations from places",
+  "main": "dist/src/index",
   "scripts": {
-    "test:lint": "npx eslint src",
-    "start": "forever -c \"node --experimental-modules\" ."
+    "pretest": "npm run compile",
+    "precompile": "npx rimraf dist/",
+    "compile": "npx tsc",
+    "test": "npx eslint --ext ts src/**/*.ts",
+    "dev:run": "tsc && node ."
   },
   "keywords": [],
   "author": "Dirigeants",
   "contributors": [
-    "KingDGrizzle <kingdgrizzle@gmail.com>",
+    "Vlad Frangu <kingdgrizzle@gmail.com>",
     "bdistin",
     "kyranet <kyradiscord@gmail.com>"
   ],
   "license": "MIT",
   "dependencies": {
     "ascii-table": "0.0.9",
+    "bufferutil": "^4.0.1",
     "discord.js": "github:discordjs/discord.js",
     "fast-levenshtein": "^2.0.6",
-    "klasa": "github:dirigeants/klasa#esm",
-    "marked": "^0.6.3",
-    "node-fetch": "^2.6.0"
+    "klasa": "github:dirigeants/klasa#settings",
+    "marked": "^0.7.0",
+    "node-fetch": "^2.6.0",
+    "utf-8-validate": "^5.0.2"
   },
   "optionalDependencies": {
-    "erlpack": "github:discordapp/erlpack",
     "zlib-sync": "^0.1.5"
   },
   "devDependencies": {
-    "eslint": "^5.16.0",
-    "eslint-config-klasa": "github:dirigeants/klasa-lint"
+    "@types/fast-levenshtein": "0.0.1",
+    "@types/node": "^12.7.5",
+    "@types/node-fetch": "^2.5.1",
+    "@typescript-eslint/eslint-plugin": "^2.3.0",
+    "@typescript-eslint/parser": "^2.3.0",
+    "eslint": "^6.4.0",
+    "eslint-config-klasa": "github:dirigeants/klasa-lint",
+    "typescript": "^3.6.3"
   }
 }

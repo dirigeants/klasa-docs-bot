@@ -1,0 +1,4 @@
+/**
+ * The bot token to use
+ */
+export const token = '';

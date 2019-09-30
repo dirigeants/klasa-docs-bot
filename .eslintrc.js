@@ -1,6 +1,7 @@
 module.exports = {
-	extends: 'klasa',
-	parserOptions: {
-		sourceType: 'module'
-	}
+	extends: 'klasa/eslint-ts',
+	rules: {
+		'comma-dangle': ['error', 'always-multiline'],
+		'no-dupe-class-members': 'off',
+	},
 };
