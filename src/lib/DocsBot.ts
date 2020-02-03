@@ -1,5 +1,5 @@
 import { Client } from 'klasa';
-import { DocsProviderStore } from './structures/docs/DocsProviderStore';
+import { DocsProviderStore } from './structures/pieces/DocsProviderStore';
 
 Client.defaultClientSchema
 	.add('staff', 'user', { array: true });

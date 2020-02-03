@@ -1,4 +1,6 @@
-import DocEntries from '../structures/docs/DocEntries';
+import Document from '../structures/docs/Document';
+import BaseEntry from '../structures/docs/BaseEntry';
+import { CreateFetchURLOptions } from './SharedTypes';
 
 const primitives: readonly string[] = [
 	'object',
@@ -30,17 +32,43 @@ export function generateRegExp(string: string): string {
 	return string.replace(/\w(?=(\w)?)/g, (letter, nextWord) => `${letter}+${nextWord ? '\\W*' : ''}`);
 }
 
-export function formatStrings(input: string, entries: DocEntries): string {
+export function formatStrings<
+	P extends BaseEntry,
+	S extends BaseEntry,
+	M extends BaseEntry,
+	E extends BaseEntry,
+	Ext extends BaseEntry,
+	T extends BaseEntry,
+	C extends BaseEntry
+>(input: string, entries: Document<P, S, M, E, Ext, T, C>): string {
 	// Find all @link / @tutorial and parse them
+	entries.baseURL.toLowerCase();
 	return input;
 }
 
-export function formatExternals(input: string, entries: DocEntries): string {
+export function formatExternals<
+	P extends BaseEntry,
+	S extends BaseEntry,
+	M extends BaseEntry,
+	E extends BaseEntry,
+	Ext extends BaseEntry,
+	T extends BaseEntry,
+	C extends BaseEntry
+>(input: string, entries: Document<P, S, M, E, Ext, T, C>): string {
 	// Fetch externals, return array of externals
+	entries.baseURL.toLowerCase();
 	return input;
 }
 
-export function formatTypes(types: string[][][], entries: DocEntries): string {
+export function formatTypes<
+	P extends BaseEntry,
+	S extends BaseEntry,
+	M extends BaseEntry,
+	E extends BaseEntry,
+	Ext extends BaseEntry,
+	T extends BaseEntry,
+	C extends BaseEntry
+>(types: string[][][], entries: Document<P, S, M, E, Ext, T, C>): string {
 	const returnString = [];
 	const flattenedTypes = types.flat(1);
 	let temp = '';
@@ -62,13 +90,25 @@ export function formatTypes(types: string[][][], entries: DocEntries): string {
 	return returnString.join(' | ');
 }
 
-export function wrapURL(input: string, entries: DocEntries): string {
+export function wrapURL<
+	P extends BaseEntry,
+	S extends BaseEntry,
+	M extends BaseEntry,
+	E extends BaseEntry,
+	Ext extends BaseEntry,
+	T extends BaseEntry,
+	C extends BaseEntry
+>(input: string, entries: Document<P, S, M, E, Ext, T, C>): string {
 	if (primitives.includes(input.toLowerCase())) return `[**${input}**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/${input})`;
 	if (escapeCharacters.test(input)) return input.replace(escapeCharacters, '\\$&');
 	try {
-		const item = entries.get(input);
-		return `[**${input}**](${item.url})`;
+		const item = entries.search(input);
+		return `[**${item.name}**](${item.url})`;
 	} catch {
 		return input;
 	}
+}
+
+export function createFetchURL(base: string, { branch, org, repo }: CreateFetchURLOptions = {}): (filename: string) => string {
+	return (filename: string): string => `${base}/${org ? `${org}/` : ''}${repo ? `${repo}/` : ''}${branch ? `${branch}/` : ''}${filename}`;
 }

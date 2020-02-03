@@ -5,10 +5,11 @@
   "main": "dist/src/index",
   "scripts": {
     "pretest": "npm run compile",
+    "test": "npx eslint --ext ts src/**/*.ts",
     "precompile": "npx rimraf dist/",
     "compile": "npx tsc",
-    "test": "npx eslint --ext ts src/**/*.ts",
-    "dev:run": "tsc && node ."
+    "predev:run": "npm run compile",
+    "dev:run": "node --enable-source-maps ."
   },
   "keywords": [],
   "author": "Dirigeants",
@@ -33,12 +34,14 @@
   },
   "devDependencies": {
     "@types/fast-levenshtein": "0.0.1",
-    "@types/node": "^12.7.5",
-    "@types/node-fetch": "^2.5.1",
-    "@typescript-eslint/eslint-plugin": "^2.3.0",
-    "@typescript-eslint/parser": "^2.3.0",
-    "eslint": "^6.4.0",
+    "@types/marked": "^0.6.5",
+    "@types/node": "^12.7.12",
+    "@types/node-fetch": "^2.5.2",
+    "@types/ws": "^6.0.3",
+    "@typescript-eslint/eslint-plugin": "^2.3.3",
+    "@typescript-eslint/parser": "^2.3.3",
+    "eslint": "^6.5.1",
     "eslint-config-klasa": "github:dirigeants/klasa-lint",
-    "typescript": "^3.6.3"
+    "typescript": "^3.7.0-dev.20191011"
   }
 }

@@ -3,5 +3,6 @@ module.exports = {
 	rules: {
 		'comma-dangle': ['error', 'always-multiline'],
 		'no-dupe-class-members': 'off',
+		'no-useless-constructor': 'off',
 	},
 };

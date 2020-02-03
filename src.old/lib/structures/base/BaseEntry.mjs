@@ -2,8 +2,6 @@ import { RichDisplay, Timestamp } from 'klasa';
 import djs from 'discord.js';
 const { MessageEmbed } = djs;
 
-const TS = new Timestamp('DD.MM.YYYY [at] HH:mm:ss');
-
 export default class BaseEntry {
 
 	constructor(documentation, string, createdAt, name, parent, prettyName) {

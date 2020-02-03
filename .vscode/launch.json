@@ -7,7 +7,7 @@
 		{
 			"type": "node",
 			"request": "launch",
-			"name": "Launch Program",
+			"name": "Debug Bot",
 			"program": "${workspaceFolder}\\src\\index.ts",
 			"cwd": "${workspaceFolder}",
 			"outFiles": [
@@ -15,7 +15,10 @@
 			],
 			"console": "integratedTerminal",
 			"autoAttachChildProcesses": true,
-			"outputCapture": "std"
+			"outputCapture": "std",
+			"runtimeArgs": [
+				"--enable-source-maps"
+			]
 		}
 	]
 }
