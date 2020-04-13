@@ -167,9 +167,9 @@ delayed-stream@~1.0.0:
   resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
 
 "discord.js@github:discordjs/discord.js":
-  version "12.0.2"
-  uid a53404fac3a5241abb3db94fd543ce1850d7251f
-  resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/a53404fac3a5241abb3db94fd543ce1850d7251f"
+  version "12.1.1"
+  uid "1330e2d246cf4e1b9e7f13a5f941ff086117a3fc"
+  resolved "https://codeload.github.com/discordjs/discord.js/tar.gz/1330e2d246cf4e1b9e7f13a5f941ff086117a3fc"
   dependencies:
     "@discordjs/collection" "^0.1.5"
     abort-controller "^3.0.0"
