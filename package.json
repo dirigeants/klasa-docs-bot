@@ -18,7 +18,7 @@
   "dependencies": {
     "ascii-table": "0.0.9",
     "discord.js": "github:discordjs/discord.js",
-    "fast-levenshtein": "^2.0.6",
+    "fast-levenshtein": "^3.0.0",
     "klasa": "github:dirigeants/klasa#esm",
     "marked": "^0.6.3",
     "node-fetch": "^2.6.0"
