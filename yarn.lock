@@ -778,8 +778,8 @@ write@1.0.3:
     mkdirp "^0.5.1"
 
 ws@^7.2.1:
-  version "7.2.3"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-7.2.3.tgz#a5411e1fb04d5ed0efee76d26d5c46d830c39b46"
+  version "7.5.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-7.5.0.tgz#0033bafea031fb9df041b2026fc72a571ca44691"
 
 zlib-sync@^0.1.6:
   version "0.1.6"
