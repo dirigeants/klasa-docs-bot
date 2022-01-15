@@ -20,7 +20,7 @@
     "discord.js": "github:discordjs/discord.js",
     "fast-levenshtein": "^2.0.6",
     "klasa": "github:dirigeants/klasa#esm",
-    "marked": "^0.6.3",
+    "marked": "^4.0.10",
     "node-fetch": "^2.6.0"
   },
   "optionalDependencies": {
